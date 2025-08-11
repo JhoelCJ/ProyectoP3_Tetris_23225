@@ -1,6 +1,6 @@
 # depslib dependency file v1.0
-1754773394 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisdinamico\tetrismain.cpp
-	<SFML/Graphics.hpp>
+1754931530 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismain.cpp
+	"TetrisController.h"
 	<SFML/Window.hpp>
 	<iostream>
 	<ctime>
@@ -415,4 +415,30 @@
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
+
+1754932725 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\modeltetris.cpp
+	"TetrisModel.h"
+
+1754932725 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismodel.h
+	<SFML/Graphics.hpp>
+	<cstdlib>
+	<cmath>
+
+1754931717 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetriscontroller.h
+	"TetrisModel.h"
+	"TetrisView.h"
+
+1754932648 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrisview.h
+	<SFML/Graphics.hpp>
+	"TetrisModel.h"
+
+1754932846 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\viewtetris.cpp
+	"TetrisView.h"
+	<string>
+
+1754932743 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
+	"TetrisController.h"
+	<SFML/Window/Event.hpp>
+	<ctime>
+	<cstdlib>
 
