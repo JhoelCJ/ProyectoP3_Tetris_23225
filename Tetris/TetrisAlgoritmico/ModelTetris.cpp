@@ -17,6 +17,21 @@ int PIEZAS[7][4][4] = {
     {{0,0,0,0},{1,1,1,0},{1,0,0,0},{0,0,0,0}}
 };
 
+const sf::Color PIEZA_COLORES[7] = {
+    sf::Color(0, 255, 255),
+    sf::Color(255, 255, 0),
+    sf::Color(128, 0, 128),
+    sf::Color(0, 255, 0),
+    sf::Color(255, 0, 0),
+    sf::Color(0, 0, 255),
+    sf::Color(255, 165, 0)
+};
+
+int ColaPiezas::verFrente() {
+    if (!frente) return -1;
+    return frente->tipo;
+}
+
 void ColaPiezas::encolar(int tipo) {
     NodoPieza* n = new NodoPieza(tipo);
     if (!fin) frente = fin = n;
@@ -112,12 +127,12 @@ Celda* Tablero::obtenerCelda(int r, int c) {
 bool Tablero::obtenerValor(int r, int c) {
     Celda* cl = obtenerCelda(r,c);
     if (!cl) return false;
-    return cl->llena;
+    return cl->tipo != 0;
 }
-void Tablero::establecerValor(int r, int c, bool val) {
+void Tablero::establecerValor(int r, int c, int tipo) {
     Celda* cl = obtenerCelda(r,c);
     if (!cl) return;
-    cl->llena = val;
+    cl->tipo = tipo;
 }
 
 int Tablero::contarFilas() {
@@ -131,7 +146,7 @@ bool Tablero::filaLlena(Fila* f) {
     Celda* c = f->primera;
     for (int i=0;i<cols;++i) {
         if (!c) return false;
-        if (!c->llena) return false;
+        if (c->tipo == 0) return false;
         c = c->siguiente;
     }
     return true;
@@ -188,13 +203,15 @@ bool Tablero::colisiona(int shape[4][4], int tam, int px, int py) {
     }
     return false;
 }
-
-void Tablero::fijarPieza(int shape[4][4], int tam, int px, int py) {
-    for (int r=0;r<tam;++r) for (int c=0;c<tam;++c) {
-        if (!shape[r][c]) continue;
-        int br = py + r;
-        int bc = px + c;
-        if (br >=0 && br < filas && bc >=0 && bc < cols) establecerValor(br, bc, true);
+void Tablero::fijarPieza(int shape[4][4], int tam, int px, int py, int tipoPieza) {
+    for (int r = 0; r < tam; ++r) {
+        for (int c = 0; c < tam; ++c) {
+            if (!shape[r][c]) continue;
+            int br = py + r;
+            int bc = px + c;
+            if (br >= 0 && br < filas && bc >= 0 && bc < cols)
+                establecerValor(br, bc, tipoPieza);
+        }
     }
 }
 
@@ -202,7 +219,10 @@ void Tablero::limpiarTodo() {
     Fila* f = head;
     while (f) {
         Celda* c = f->primera;
-        while (c) { c->llena = false; c = c->siguiente; }
+        while (c) {
+            c->tipo = 0;
+            c = c->siguiente;
+        }
         f = f->siguiente;
     }
 }

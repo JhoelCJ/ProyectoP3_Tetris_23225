@@ -9,18 +9,19 @@ const int FILAS = 20;
 const int COLUMNAS = 10;
 
 struct Celda {
-    bool llena;
+    int tipo;
     Celda* siguiente;
-    Celda(bool v=false) : llena(v), siguiente(nullptr) {}
+    Celda() : tipo(0), siguiente(nullptr) {}
 };
+
 struct Fila {
     Celda* primera;
     Fila* siguiente;
     Fila(int cols) : siguiente(nullptr) {
-        primera = new Celda(false);
+        primera = new Celda();
         Celda* curr = primera;
         for(int i=1; i<cols; ++i) {
-            curr->siguiente = new Celda(false);
+            curr->siguiente = new Celda();
             curr = curr->siguiente;
         }
     }
@@ -40,6 +41,7 @@ struct ColaPiezas {
     int desencolar();
     bool vacia();
     void limpiar();
+    int verFrente();
 };
 
 void rotar90(int M[][4], int inicio, int fin);
@@ -66,17 +68,14 @@ class Tablero {
 public:
     Tablero(int filas = FILAS, int cols = COLUMNAS);
     ~Tablero();
-
     void limpiarTodo();
     bool obtenerValor(int r, int c);
-    void establecerValor(int r, int c, bool val);
+    void establecerValor(int r, int c, int tipo);
 
     bool colisiona(int shape[4][4], int tam, int px, int py);
-    void fijarPieza(int shape[4][4], int tam, int px, int py);
+    void fijarPieza(int shape[4][4], int tam, int px, int py, int tipoPieza);
     int limpiarLineasCompletas();
-
     int contarFilas();
-
     Fila* obtenerHead();
 
 private:
