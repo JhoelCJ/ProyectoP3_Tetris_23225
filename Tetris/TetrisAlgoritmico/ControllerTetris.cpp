@@ -3,9 +3,7 @@
 #include <ctime>
 #include <cstdlib>
 
-Controlador::Controlador()
-: intervaloBase(0.8f), juego(500, 0.8f)
-{
+Controlador::Controlador(): intervaloBase(0.8f), juego(500, 0.8f){
     srand((unsigned)time(nullptr));
     tablero = new Tablero(FILAS, COLUMNAS);
     vista = new Vista(COLUMNAS * 24 + SIDEBAR_WIDTH, FILAS * 24, "Tetris");
@@ -80,7 +78,6 @@ void Controlador::iniciarJuego(Modo modo) {
         modoSecuencial = true;
         jugadorActivo = -1;
     }
-
     llenarSacoSiNecesario();
     nuevaPieza();
     juego = Juego(500, intervaloBase);
@@ -107,6 +104,26 @@ void Controlador::reiniciarJuegoDatos() {
 }
 
 void Controlador::procesarEvento(const sf::Event& evento) {
+    if (finJuego) {
+        if (evento.type == sf::Event::MouseButtonPressed && evento.mouseButton.button == sf::Mouse::Left) {
+            sf::Vector2f mp = vista->obtenerVentana().mapPixelToCoords(sf::Vector2i(evento.mouseButton.x, evento.mouseButton.y));
+            sf::FloatRect rRe = vista->obtenerRectBotonReiniciar();
+            sf::FloatRect rSalir = vista->obtenerRectBotonSalir();
+            if (rRe.contains(mp)) {
+                if (modoActual == Modo::DosJugadores) reiniciarDuelo();
+                else reiniciarPartida();
+                return;
+            }
+            if (rSalir.contains(mp)) {
+                reiniciarJuegoDatos();
+                jugando = false;
+                finJuego = false;
+                mostrarMensaje = false;
+                return;
+            }
+        }
+        return;
+    }
     if (!estaJugando()) return;
 
     if (evento.type == sf::Event::KeyPressed) {
@@ -130,9 +147,6 @@ void Controlador::procesarEvento(const sf::Event& evento) {
                 }
                 if (!kicked) for (int r=0;r<4;++r) for (int c=0;c<4;++c) piezaForma[r][c] = copia[r][c];
             }
-        } else if (evento.key.code == sf::Keyboard::Space) {
-            while (!tablero->colisiona(piezaForma, piezaTam, piezaX, piezaY + 1)) piezaY++;
-            fijarYProcesar();
         }
     }
 }
@@ -169,16 +183,18 @@ void Controlador::dibujar() {
         vista->dibujarTextoCentral(mensajeTexto.c_str());
     }
 
-    if (finJuego && modoActual == Modo::DosJugadores) {
-        std::string ganador;
-        if (puntuaciones[0] > puntuaciones[1]) ganador = "\tGANA JUGADOR 1";
-        else if (puntuaciones[1] > puntuaciones[0]) ganador = "\tGANA JUGADOR 2";
-        else ganador = "\tEMPATE";
-        std::string resumen = ganador + " - P1: " + std::to_string(puntuaciones[0]) +
-                              "  P2: " + std::to_string(puntuaciones[1]);
-        vista->dibujarTextoCentral(resumen.c_str());
-    } else if (finJuego) {
-        vista->dibujarTextoCentral("\tGAME OVER");
+    if (finJuego) {
+        if (modoActual == Modo::DosJugadores) {
+            std::string ganador;
+            if (puntuaciones[0] > puntuaciones[1]) ganador = "GANA JUGADOR 1";
+            else if (puntuaciones[1] > puntuaciones[0]) ganador = "GANA JUGADOR 2";
+            else ganador = "EMPATE";
+            std::string titulo = ganador;
+            vista->dibujarPantallaFinal(titulo, puntuaciones[0], puntuaciones[1]);
+        } else {
+            std::string titulo = "GAME OVER";
+            vista->dibujarPantallaFinal(titulo, juego.obtenerPuntuacion(), 0);
+        }
     }
 
     vista->presentar();
@@ -218,18 +234,82 @@ void Controlador::fijarYProcesar() {
                 juego = Juego(500, intervaloBase);
                 niveles[1] = juego.obtenerNivel();
                 mostrarMensaje = true;
-                mensajeTiempo = 2.5f;
+                mensajeTiempo = 3.5f;
                 mensajeTexto = "Jugador 1 termino. Comienza Jugador 2";
             } else {
                 finJuego = true;
                 jugando = false;
-                mostrarMensaje = true;
-                mensajeTiempo = 3.0f;
-                mensajeTexto = "Duelo finalizado. Mostrar ganador";
+                mostrarMensaje = false;
+                mensajeTexto.clear();
             }
         } else {
             finJuego = true;
             jugando = false;
         }
     }
+}
+
+int Controlador::obtenerPuntos(int jugador) const {
+    if (modoActual == Modo::DosJugadores) {
+        if (jugador < 0 || jugador > 1) return 0;
+        return puntuaciones[jugador];
+    } else {
+        return juego.obtenerPuntuacion();
+    }
+}
+
+int Controlador::obtenerNivel(int jugador) const {
+    if (modoActual == Modo::DosJugadores) {
+        if (jugador < 0 || jugador > 1) return 1;
+        return niveles[jugador];
+    } else {
+        return juego.obtenerNivel();
+    }
+}
+
+void Controlador::reiniciarPartida() {
+    tablero->limpiarTodo();
+    cola.limpiar();
+    llenarSacoSiNecesario();
+    puntuaciones[0] = puntuaciones[1] = 0;
+    niveles[0] = niveles[1] = 1;
+    juego = Juego(500, intervaloBase);
+    intervaloCaida = intervaloBase * juego.obtenerFactorVelocidad();
+    acumulador = 0.f;
+    if (modoActual == Modo::DosJugadores) {
+        jugadorActivo = 0;
+        modoSecuencial = true;
+    } else {
+        jugadorActivo = -1;
+        modoSecuencial = false;
+    }
+
+    finJuego = false;
+    jugando = true;
+    mostrarMensaje = false;
+    mensajeTexto.clear();
+    llenarSacoSiNecesario();
+    nuevaPieza();
+}
+
+void Controlador::reiniciarDuelo() {
+    tablero->limpiarTodo();
+    cola.limpiar();
+    llenarSacoSiNecesario();
+
+    puntuaciones[0] = puntuaciones[1] = 0;
+    niveles[0] = niveles[1] = 1;
+    jugadorActivo = 0;
+    modoActual = Modo::DosJugadores;
+    modoSecuencial = true;
+
+    juego = Juego(500, intervaloBase);
+    intervaloCaida = intervaloBase * juego.obtenerFactorVelocidad();
+    acumulador = 0.f;
+    finJuego = false;
+    mostrarMensaje = false;
+    mensajeTexto.clear();
+    jugando = true;
+
+    nuevaPieza();
 }

@@ -26,9 +26,67 @@ sf::RenderWindow& Vista::obtenerVentana() { return ventana; }
 void Vista::limpiarPantalla() { ventana.clear(sf::Color::Black); }
 void Vista::presentar() { ventana.display(); }
 
-void Vista::dibujarPanelLateral(int puntuacion0, int puntuacion1, int jugadorActivo,
-                                int nivel0, int nivel1, int siguienteTipo)
-{
+void Vista::dibujarPantallaFinal(const std::string& titulo, int p1, int p2){
+    // fondo oscuro semitransparente
+    sf::RectangleShape overlay(sf::Vector2f((float)ventana.getSize().x, (float)ventana.getSize().y));
+    overlay.setFillColor(sf::Color(0, 0, 0, 180));
+    ventana.draw(overlay);
+
+    if (fuente.getInfo().family.empty()) return;
+    // Texto título (ganador)
+    sf::Text textoTitulo(titulo, fuente, FONT_SIZE_LARGE);
+    textoTitulo.setFillColor(sf::Color::White);
+    // centrar horizontalmente
+    sf::FloatRect tb = textoTitulo.getLocalBounds();
+    textoTitulo.setOrigin(tb.left + tb.width/2.f, tb.top + tb.height/2.f);
+    textoTitulo.setPosition((float)ventana.getSize().x/2.f, (float)ventana.getSize().y*0.28f);
+    ventana.draw(textoTitulo);
+    // Puntuaciones
+    std::ostringstream ss;
+    ss << "Jugador 1: " << p1 << "   |   Jugador 2: " << p2;
+    sf::Text textoScores(ss.str(), fuente, FONT_SIZE_MEDIUM);
+    textoScores.setFillColor(sf::Color::White);
+    sf::FloatRect ts = textoScores.getLocalBounds();
+    textoScores.setOrigin(ts.left + ts.width/2.f, ts.top + ts.height/2.f);
+    textoScores.setPosition((float)ventana.getSize().x/2.f, (float)ventana.getSize().y*0.42f);
+    ventana.draw(textoScores);
+
+    // Botones (rectángulos) — Reiniciar y Salir
+    float btnW = 200.f, btnH = 48.f;
+    float centerX = ventana.getSize().x / 2.f;
+    float baseY = ventana.getSize().y * 0.55f;
+    // Reiniciar
+    sf::RectangleShape btnReiniciar(sf::Vector2f(btnW, btnH));
+    btnReiniciar.setFillColor(sf::Color(70, 130, 180)); // steel blue
+    btnReiniciar.setOrigin(btnW/2.f, btnH/2.f);
+    btnReiniciar.setPosition(centerX, baseY);
+    ventana.draw(btnReiniciar);
+
+    sf::Text txtRe("Reiniciar", fuente, FONT_SIZE_MEDIUM);
+    txtRe.setFillColor(sf::Color::White);
+    sf::FloatRect tr = txtRe.getLocalBounds();
+    txtRe.setOrigin(tr.left + tr.width/2.f, tr.top + tr.height/2.f);
+    txtRe.setPosition(centerX, baseY);
+    ventana.draw(txtRe);
+    // Salir (debajo)
+    sf::RectangleShape btnSalir(sf::Vector2f(btnW, btnH));
+    btnSalir.setFillColor(sf::Color(150, 50, 50)); // rojo
+    btnSalir.setOrigin(btnW/2.f, btnH/2.f);
+    btnSalir.setPosition(centerX, baseY + btnH + 18.f);
+    ventana.draw(btnSalir);
+
+    sf::Text txtSalir("Salir", fuente, FONT_SIZE_MEDIUM);
+    txtSalir.setFillColor(sf::Color::White);
+    sf::FloatRect ts2 = txtSalir.getLocalBounds();
+    txtSalir.setOrigin(ts2.left + ts2.width/2.f, ts2.top + ts2.height/2.f);
+    txtSalir.setPosition(centerX, baseY + btnH + 18.f);
+    ventana.draw(txtSalir);
+    // guardar rectángulos para detección de clicks en el controlador
+    botonReiniciarRect = sf::FloatRect(centerX - btnW/2.f, baseY - btnH/2.f, btnW, btnH);
+    botonSalirRect = sf::FloatRect(centerX - btnW/2.f, baseY + btnH/2.f + 18.f - btnH/2.f, btnW, btnH);
+}
+
+void Vista::dibujarPanelLateral(int puntuacion0, int puntuacion1, int jugadorActivo, int nivel0, int nivel1, int siguienteTipo){
     const int TILE = TILE_SIZE;
     const int SIDEBAR = SIDEBAR_WIDTH;
     const int BOARD_W = COLUMNAS * TILE;
@@ -112,12 +170,6 @@ void Vista::dibujarPanelLateral(int puntuacion0, int puntuacion1, int jugadorAct
             }
         }
     }
-
-    std::string instr = "Controles:\n\t|<-| |->| : mover\nArriba: rotar\nAbajo: bajar";
-    texto.setCharacterSize(13);
-    texto.setPosition(xBase, FILAS * TILE - 100.f);
-    texto.setString(instr);
-    ventana.draw(texto);
 }
 
 void Vista::dibujarTablero(Fila* head, int filas, int cols) {
@@ -183,10 +235,18 @@ void Vista::dibujarHUD(int puntuacion0, int puntuacion1, int jugadorActivo) {
 
 void Vista::dibujarTextoCentral(const char* texto) {
     if (fuente.getInfo().family.empty()) return;
-    sf::Text t(texto, fuente, 28);
+    sf::Text t(texto, fuente, 18);
     t.setFillColor(sf::Color::Red);
-    float x = 10.f;
-    float y = (FILAS * TILE_SIZE) / 2.f - 24.f;
-    t.setPosition(x,y);
+    float centerX = ventana.getSize().x / 2.f;
+    float centerY = ventana.getSize().y / 1.5f;
+    sf::FloatRect lb = t.getLocalBounds();
+    t.setOrigin(lb.left + lb.width / 2.f, lb.top + lb.height / 2.f);
+    t.setPosition(centerX, centerY);
     ventana.draw(t);
+}
+sf::FloatRect Vista::obtenerRectBotonReiniciar() const {
+    return botonReiniciarRect;
+}
+sf::FloatRect Vista::obtenerRectBotonSalir() const {
+    return botonSalirRect;
 }

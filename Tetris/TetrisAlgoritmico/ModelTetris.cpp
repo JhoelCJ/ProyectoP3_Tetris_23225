@@ -1,7 +1,6 @@
 #include "TetrisModel.h"
 
 int PIEZAS[7][4][4] = {
-
     {{0,0,0,0},{1,1,1,1},{0,0,0,0},{0,0,0,0}},
 
     {{0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0}},
@@ -78,7 +77,6 @@ int Juego::obtenerPuntuacion() const { return puntuacion; }
 int Juego::obtenerNivel() const { return nivel; }
 float Juego::obtenerFactorVelocidad() const { return pow(0.9f, float(nivel - 1)); }
 bool Juego::nivelSubio() const { return cambioNivel; }
-
 
 Tablero::Tablero(int f, int c) : filas(f), cols(c) {
     head = crearFilas(filas, cols);

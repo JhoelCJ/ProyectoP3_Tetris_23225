@@ -19,6 +19,17 @@ public:
     void salirDelMenu();
     bool estaJugando() const;
 
+    bool esFinJuego() const { return finJuego; }
+    void reiniciarDuelo();
+
+    int obtenerPuntos(int jugador) const;
+    int obtenerNivel(int jugador) const;
+    Modo obtenerModo() const { return modoActual; }
+
+    bool estaEnPantallaFinal() const { return finJuego; }
+
+    void reiniciarPartida();
+
     Vista& obtenerVista();
 
 private:
