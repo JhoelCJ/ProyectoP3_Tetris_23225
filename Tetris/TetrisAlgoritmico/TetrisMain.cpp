@@ -11,13 +11,24 @@ int main() {
     while (vista.abierta()) {
         sf::Event evento;
         while (vista.obtenerVentana().pollEvent(evento)) {
-            menu.procesarEvento(evento);
+            if (!controlador.estaJugando()) {
+                menu.procesarEvento(evento);
+            }
             controlador.procesarEvento(evento);
 
             if (evento.type == sf::Event::Closed) {
                 vista.obtenerVentana().close();
             }
         }
+
+       /* while (vista.obtenerVentana().pollEvent(evento)) {
+            menu.procesarEvento(evento);
+            controlador.procesarEvento(evento);
+
+            if (evento.type == sf::Event::Closed) {
+                vista.obtenerVentana().close();
+            }
+        }*/
 
         float dt = reloj.restart().asSeconds();
 

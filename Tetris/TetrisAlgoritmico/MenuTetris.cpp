@@ -88,6 +88,7 @@ void Menu::crearWidgets() {
 }
 
 void Menu::procesarEvento(const sf::Event& evento) {
+    if (controlador.estaJugando()) return;
     gui.handleEvent(evento);
 }
 

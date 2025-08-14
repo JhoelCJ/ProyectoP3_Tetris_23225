@@ -61,6 +61,8 @@ private:
     bool jugando;
     bool finJuego;
 
+    bool puedeRotar;
+
     void llenarSacoSiNecesario();
     void nuevaPieza();
     void copiarFormaDesdeTipo(int tipo);

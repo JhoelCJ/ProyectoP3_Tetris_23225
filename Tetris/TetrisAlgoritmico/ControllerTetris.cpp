@@ -2,6 +2,7 @@
 #include <SFML/Window/Event.hpp>
 #include <ctime>
 #include <cstdlib>
+#include <iostream>
 
 Controlador::Controlador(): intervaloBase(0.8f), juego(500, 0.8f){
     srand((unsigned)time(nullptr));
@@ -21,6 +22,7 @@ Controlador::Controlador(): intervaloBase(0.8f), juego(500, 0.8f){
     mensajeTexto.clear();
     jugando = false;
     finJuego = false;
+    puedeRotar = true;
 }
 
 Controlador::~Controlador() {
@@ -127,6 +129,11 @@ void Controlador::procesarEvento(const sf::Event& evento) {
     if (!estaJugando()) return;
 
     if (evento.type == sf::Event::KeyPressed) {
+
+    if (evento.key.code == sf::Keyboard::Space) {
+        return;
+    }
+
         if (evento.key.code == sf::Keyboard::Left) {
             if (!tablero->colisiona(piezaForma, piezaTam, piezaX - 1, piezaY)) piezaX--;
         } else if (evento.key.code == sf::Keyboard::Right) {
@@ -135,6 +142,7 @@ void Controlador::procesarEvento(const sf::Event& evento) {
             if (!tablero->colisiona(piezaForma, piezaTam, piezaX, piezaY + 1)) piezaY++;
             else fijarYProcesar();
         } else if (evento.key.code == sf::Keyboard::Up) {
+            if (puedeRotar) {
             int copia[4][4];
             for (int r=0;r<4;++r) for (int c=0;c<4;++c) copia[r][c] = piezaForma[r][c];
             rotar90(piezaForma, 0, piezaTam-1);
@@ -146,7 +154,14 @@ void Controlador::procesarEvento(const sf::Event& evento) {
                     }
                 }
                 if (!kicked) for (int r=0;r<4;++r) for (int c=0;c<4;++c) piezaForma[r][c] = copia[r][c];
+                }
+                puedeRotar = false;
             }
+        }
+    }
+    if (evento.type == sf::Event::KeyReleased) {
+        if (evento.key.code == sf::Keyboard::Up) {
+            puedeRotar = true;
         }
     }
 }
