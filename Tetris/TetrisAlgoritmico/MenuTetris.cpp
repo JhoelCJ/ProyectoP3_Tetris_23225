@@ -6,6 +6,12 @@ Menu::Menu(Vista& vistaRef, Controlador& controladorRef): gui(vistaRef.obtenerVe
 
 void Menu::crearWidgets() {
 
+    auto bg = tgui::Picture::create("imagen/Fondo3.jpg");
+        bg->setSize("100%", "100%");
+        bg->setEnabled(false);
+        bg->setVisible(true);
+        gui.add(bg, "menu_bg");
+
     auto aplicarEstilo = [](tgui::Button::Ptr btn, const tgui::Color& bg, const tgui::Color& hover, const tgui::Color& down, const tgui::Color& borderColor) {
         btn->setSize(220, 46);
         btn->setTextSize(18);

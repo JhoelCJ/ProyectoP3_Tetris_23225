@@ -208,7 +208,7 @@ void Controlador::dibujar() {
             vista->dibujarPantallaFinal(titulo, puntuaciones[0], puntuaciones[1]);
         } else {
             std::string titulo = "GAME OVER";
-            vista->dibujarPantallaFinal(titulo, juego.obtenerPuntuacion(), 0);
+            vista->dibujarPantallaFinal(titulo, juego.obtenerPuntuacion(), -1);
         }
     }
 

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1755212970 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismain.cpp
+1755213976 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismain.cpp
 	"TetrisController.h"
 	"TetrisMenu.h"
 	<SFML/System/Clock.hpp>
@@ -429,21 +429,21 @@
 	<SFML/Graphics.hpp>
 	"TetrisModel.h"
 
-1755210946 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\viewtetris.cpp
+1755214939 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\viewtetris.cpp
 	<SFML/Graphics.hpp>
 	<TGUI/TGUI.hpp>
 	"TetrisView.h"
 	"TetrisModel.h"
 	<string>
 
-1755213498 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
+1755214202 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
 	"TetrisController.h"
 	<SFML/Window/Event.hpp>
 	<ctime>
 	<cstdlib>
 	<iostream>
 
-1755208377 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismenu.h
+1755215337 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismenu.h
 	<TGUI/TGUI.hpp>
 	"TetrisController.h"
 	"TetrisView.h"
@@ -1218,6 +1218,6 @@
 1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\main.hpp
 	<SFML/Config.hpp>
 
-1755212970 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\menutetris.cpp
+1755217215 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\menutetris.cpp
 	"TetrisMenu.h"
 

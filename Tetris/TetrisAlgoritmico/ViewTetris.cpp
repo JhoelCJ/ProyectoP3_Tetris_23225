@@ -14,7 +14,7 @@ const sf::Color COLORES_PIEZAS[7] = {
     sf::Color(255, 165, 0)
 };
 
-Vista::Vista(int anchoPix, int altoPix, const char* titulo): ventana(sf::VideoMode(anchoPix, altoPix), titulo){
+Vista::Vista(int anchoPix, int altoPix, const char* titulo): ventana(sf::VideoMode(anchoPix, altoPix), titulo, sf::Style::Titlebar | sf::Style::Close){
     ventana.setFramerateLimit(60);
     fuente.loadFromFile("fuente/MinecraftTen.ttf");
 }
@@ -27,23 +27,28 @@ void Vista::limpiarPantalla() { ventana.clear(sf::Color::Black); }
 void Vista::presentar() { ventana.display(); }
 
 void Vista::dibujarPantallaFinal(const std::string& titulo, int p1, int p2){
-    // fondo oscuro semitransparente
+
     sf::RectangleShape overlay(sf::Vector2f((float)ventana.getSize().x, (float)ventana.getSize().y));
     overlay.setFillColor(sf::Color(0, 0, 0, 180));
     ventana.draw(overlay);
 
     if (fuente.getInfo().family.empty()) return;
-    // Texto título (ganador)
+
     sf::Text textoTitulo(titulo, fuente, FONT_SIZE_LARGE);
     textoTitulo.setFillColor(sf::Color::White);
-    // centrar horizontalmente
+
     sf::FloatRect tb = textoTitulo.getLocalBounds();
     textoTitulo.setOrigin(tb.left + tb.width/2.f, tb.top + tb.height/2.f);
     textoTitulo.setPosition((float)ventana.getSize().x/2.f, (float)ventana.getSize().y*0.28f);
     ventana.draw(textoTitulo);
-    // Puntuaciones
+
     std::ostringstream ss;
-    ss << "Jugador 1: " << p1 << "   |   Jugador 2: " << p2;
+    if (p2 >= 0) {
+        ss << "Jugador 1: " << p1 << " | Jugador 2: " << p2;
+    } else {
+        ss << "Puntos: " << p1;
+    }
+
     sf::Text textoScores(ss.str(), fuente, FONT_SIZE_MEDIUM);
     textoScores.setFillColor(sf::Color::White);
     sf::FloatRect ts = textoScores.getLocalBounds();
@@ -51,13 +56,12 @@ void Vista::dibujarPantallaFinal(const std::string& titulo, int p1, int p2){
     textoScores.setPosition((float)ventana.getSize().x/2.f, (float)ventana.getSize().y*0.42f);
     ventana.draw(textoScores);
 
-    // Botones (rectángulos) — Reiniciar y Salir
     float btnW = 200.f, btnH = 48.f;
     float centerX = ventana.getSize().x / 2.f;
     float baseY = ventana.getSize().y * 0.55f;
-    // Reiniciar
+
     sf::RectangleShape btnReiniciar(sf::Vector2f(btnW, btnH));
-    btnReiniciar.setFillColor(sf::Color(70, 130, 180)); // steel blue
+    btnReiniciar.setFillColor(sf::Color(70, 130, 180));
     btnReiniciar.setOrigin(btnW/2.f, btnH/2.f);
     btnReiniciar.setPosition(centerX, baseY);
     ventana.draw(btnReiniciar);
@@ -68,9 +72,9 @@ void Vista::dibujarPantallaFinal(const std::string& titulo, int p1, int p2){
     txtRe.setOrigin(tr.left + tr.width/2.f, tr.top + tr.height/2.f);
     txtRe.setPosition(centerX, baseY);
     ventana.draw(txtRe);
-    // Salir (debajo)
+
     sf::RectangleShape btnSalir(sf::Vector2f(btnW, btnH));
-    btnSalir.setFillColor(sf::Color(150, 50, 50)); // rojo
+    btnSalir.setFillColor(sf::Color(150, 50, 50));
     btnSalir.setOrigin(btnW/2.f, btnH/2.f);
     btnSalir.setPosition(centerX, baseY + btnH + 18.f);
     ventana.draw(btnSalir);
@@ -81,7 +85,6 @@ void Vista::dibujarPantallaFinal(const std::string& titulo, int p1, int p2){
     txtSalir.setOrigin(ts2.left + ts2.width/2.f, ts2.top + ts2.height/2.f);
     txtSalir.setPosition(centerX, baseY + btnH + 18.f);
     ventana.draw(txtSalir);
-    // guardar rectángulos para detección de clicks en el controlador
     botonReiniciarRect = sf::FloatRect(centerX - btnW/2.f, baseY - btnH/2.f, btnW, btnH);
     botonSalirRect = sf::FloatRect(centerX - btnW/2.f, baseY + btnH/2.f + 18.f - btnH/2.f, btnW, btnH);
 }
@@ -170,6 +173,39 @@ void Vista::dibujarPanelLateral(int puntuacion0, int puntuacion1, int jugadorAct
             }
         }
     }
+
+    const float controlsPadding = 12.f;
+    const float controlsH = 110.f;
+    const float controlsW = (float)SIDEBAR - 2.f * controlsPadding;
+    const float controlsPosX = (float)BOARD_W + controlsPadding;
+    const float controlsPosY = (float)(FILAS * TILE) - controlsH - controlsPadding;
+
+    sf::RectangleShape controlsBg(sf::Vector2f(controlsW, controlsH));
+    controlsBg.setPosition(controlsPosX, controlsPosY);
+    controlsBg.setFillColor(sf::Color(25, 25, 25, 200));
+    controlsBg.setOutlineThickness(1.f);
+    controlsBg.setOutlineColor(sf::Color(80, 80, 80, 200));
+    ventana.draw(controlsBg);
+
+    sf::Text ctrlTitle("CONTROLES", fuente, 14);
+    ctrlTitle.setStyle(sf::Text::Bold);
+    ctrlTitle.setFillColor(sf::Color::White);
+    ctrlTitle.setPosition(controlsPosX + 8.f, controlsPosY + 8.f);
+    ventana.draw(ctrlTitle);
+
+    sf::Text ctrlLine("", fuente, 13);
+    ctrlLine.setFillColor(sf::Color(220, 220, 220));
+    float ly = controlsPosY + 30.f;
+    float lx = controlsPosX + 8.f;
+    ctrlLine.setString("Izqu/Dere: Mover");
+    ctrlLine.setPosition(lx, ly); ventana.draw(ctrlLine);
+    ly += 18.f;
+    ctrlLine.setString("Arriba: Rotar");
+    ctrlLine.setPosition(lx, ly); ventana.draw(ctrlLine);
+    ly += 18.f;
+    ctrlLine.setString("Abajo: Acelerar");
+    ctrlLine.setPosition(lx, ly); ventana.draw(ctrlLine);
+    ly += 18.f;
 }
 
 void Vista::dibujarTablero(Fila* head, int filas, int cols) {
