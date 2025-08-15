@@ -1,4 +1,5 @@
 #include "TetrisController.h"
+#include "TetrisMusica.h"
 #include <SFML/Window/Event.hpp>
 #include <ctime>
 #include <cstdlib>
@@ -23,6 +24,9 @@ Controlador::Controlador(): intervaloBase(0.8f), juego(500, 0.8f){
     jugando = false;
     finJuego = false;
     puedeRotar = true;
+
+    audio.loadMusic("menu", "musica/Zelda.ogg");
+    audio.loadMusic("game", "musica/TetrisPelicula.ogg");
 }
 
 Controlador::~Controlador() {
@@ -53,6 +57,10 @@ void Controlador::nuevaPieza() {
     copiarFormaDesdeTipo(tipo);
     piezaX = (COLUMNAS/2) - 2;
     piezaY = -1;
+
+    if (cola.vacia()) {
+        llenarSacoSiNecesario();
+    }
 
     siguienteTipo = cola.verFrente();
 }
@@ -85,6 +93,12 @@ void Controlador::iniciarJuego(Modo modo) {
     juego = Juego(500, intervaloBase);
     intervaloCaida = intervaloBase * juego.obtenerFactorVelocidad();
     acumulador = 0.0f;
+
+    stopMusic();
+    if (!audio.playMusic("game", true, 45.f)) {
+        std::cerr << "Controlador::iniciarJuego -> no se pudo reproducir 'game' music\n";
+    }
+
     jugando = true;
     finJuego = false;
 }
@@ -190,6 +204,7 @@ void Controlador::actualizar(float dt) {
             mensajeTexto.clear();
         }
     }
+    audio.update(dt);
 }
 
 void Controlador::dibujar() {
@@ -233,6 +248,7 @@ void Controlador::fijarYProcesar() {
         puntuaciones[jugadorActivo] += puntos;
 
         if (eliminadas > 0) {
+            playSoundEffect("lineclear");
             juego.puntosPorLinea(eliminadas);
         }
         niveles[jugadorActivo] = juego.obtenerNivel();
@@ -265,10 +281,12 @@ void Controlador::fijarYProcesar() {
                 jugando = false;
                 mostrarMensaje = false;
                 mensajeTexto.clear();
+                playSoundEffect("gameover");
             }
         } else {
             finJuego = true;
             jugando = false;
+            playSoundEffect("gameover");
         }
     }
 }
@@ -300,6 +318,13 @@ void Controlador::volverAlMenu() {
     mostrarMensaje = false;
     mensajeTexto.clear();
     cola.limpiar();
+
+    stopMusic();
+    if (!audio.playMusic("menu", true, 45.f)) {
+        std::cerr << "Controlador::iniciarJuego -> no se pudo reproducir 'menu' music\n";
+    }
+
+    playMenuMusic();
 }
 
 void Controlador::reiniciarPartida() {
@@ -347,4 +372,24 @@ void Controlador::reiniciarDuelo() {
     jugando = true;
 
     nuevaPieza();
+}
+
+void Controlador::playMenuMusic() {
+    audio.playMusic("menu", true, 40.f);
+}
+
+void Controlador::playGameMusic() {
+    audio.playMusic("game", true, 45.f);
+}
+
+void Controlador::stopMusic() {
+    audio.stopMusic();
+}
+
+void Controlador::pauseMusic() {
+    audio.pauseMusic();
+}
+
+void Controlador::playSoundEffect(const std::string& id) {
+    audio.playSound(id, 90.f);
 }

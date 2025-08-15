@@ -19,6 +19,7 @@
 					<Add library="sfml-window-d" />
 					<Add library="sfml-system-d" />
 					<Add library="tgui-d" />
+					<Add library="sfml-audio-d" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -35,6 +36,7 @@
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
 					<Add library="tgui" />
+					<Add library="sfml-audio" />
 				</Linker>
 			</Target>
 		</Build>
@@ -55,10 +57,12 @@
 		<Unit filename="ControllerTetris.cpp" />
 		<Unit filename="MenuTetris.cpp" />
 		<Unit filename="ModelTetris.cpp" />
+		<Unit filename="MusicaTetris.cpp" />
 		<Unit filename="TetrisController.h" />
 		<Unit filename="TetrisMain.cpp" />
 		<Unit filename="TetrisMenu.h" />
 		<Unit filename="TetrisModel.h" />
+		<Unit filename="TetrisMusica.h" />
 		<Unit filename="TetrisView.h" />
 		<Unit filename="ViewTetris.cpp" />
 		<Unit filename="cb.bmp" />

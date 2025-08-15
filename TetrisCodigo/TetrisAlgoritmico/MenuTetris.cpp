@@ -2,6 +2,7 @@
 
 Menu::Menu(Vista& vistaRef, Controlador& controladorRef): gui(vistaRef.obtenerVentana()), controlador(controladorRef){
     crearWidgets();
+    controlador.playMenuMusic();
 }
 
 void Menu::crearWidgets() {

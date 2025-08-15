@@ -413,7 +413,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1755219784 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\modeltetris.cpp
+1755220471 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\modeltetris.cpp
 	"TetrisModel.h"
 
 1755127447 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismodel.h
@@ -421,9 +421,10 @@
 	<cstdlib>
 	<cmath>
 
-1755219303 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetriscontroller.h
+1755228699 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetriscontroller.h
 	"TetrisModel.h"
 	"TetrisView.h"
+	"TetrisMusica.h"
 
 1755219303 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrisview.h
 	<SFML/Graphics.hpp>
@@ -436,8 +437,9 @@
 	"TetrisModel.h"
 	<string>
 
-1755219741 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
+1755229560 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
 	"TetrisController.h"
+	"TetrisMusica.h"
 	<SFML/Window/Event.hpp>
 	<ctime>
 	<cstdlib>
@@ -1218,6 +1220,119 @@
 1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\main.hpp
 	<SFML/Config.hpp>
 
-1755220203 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\menutetris.cpp
+1755228526 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\menutetris.cpp
 	"TetrisMenu.h"
+
+1755230115 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\musicatetris.cpp
+	"TetrisMusica.h"
+	<iostream>
+
+1755230115 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismusica.h
+	<SFML/Audio.hpp>
+	<map>
+	<string>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<algorithm>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\alresource.hpp
+	<SFML/Audio/Export.hpp>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundfilefactory.inl
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
 

@@ -3,6 +3,7 @@
 
 #include "TetrisModel.h"
 #include "TetrisView.h"
+#include "TetrisMusica.h"
 
 class Controlador {
 public:
@@ -31,6 +32,12 @@ public:
     void reiniciarPartida();
 
     void volverAlMenu();
+
+    void playMenuMusic();
+    void playGameMusic();
+    void stopMusic();
+    void playSoundEffect(const std::string& id);
+    void pauseMusic();
 
     Vista& obtenerVista();
 
@@ -73,6 +80,8 @@ private:
 
     const int TILE_SIZE = 24;
     const int SIDEBAR_WIDTH = 200;
+
+    AudioManager audio;
 };
 
 #endif // TETRISCONTROLLER_H_INCLUDED
