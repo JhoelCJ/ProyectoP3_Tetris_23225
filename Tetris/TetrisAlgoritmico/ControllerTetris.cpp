@@ -128,6 +128,15 @@ void Controlador::procesarEvento(const sf::Event& evento) {
     }
     if (!estaJugando()) return;
 
+    if (evento.type == sf::Event::MouseButtonPressed && evento.mouseButton.button == sf::Mouse::Left) {
+        sf::Vector2f mp = vista->obtenerVentana().mapPixelToCoords(sf::Vector2i(evento.mouseButton.x, evento.mouseButton.y));
+        sf::FloatRect rMenu = vista->obtenerRectBotonMenu();
+        if (rMenu.contains(mp)) {
+            volverAlMenu();
+            return;
+        }
+    }
+
     if (evento.type == sf::Event::KeyPressed) {
 
     if (evento.key.code == sf::Keyboard::Space) {
@@ -250,7 +259,7 @@ void Controlador::fijarYProcesar() {
                 niveles[1] = juego.obtenerNivel();
                 mostrarMensaje = true;
                 mensajeTiempo = 3.5f;
-                mensajeTexto = "Jugador 1 termino. Comienza Jugador 2";
+                mensajeTexto = "Fin Turno Jugador 1, Comienza Jugador 2";
             } else {
                 finJuego = true;
                 jugando = false;
@@ -280,6 +289,17 @@ int Controlador::obtenerNivel(int jugador) const {
     } else {
         return juego.obtenerNivel();
     }
+}
+
+void Controlador::volverAlMenu() {
+    reiniciarJuegoDatos();
+    jugando = false;
+    finJuego = false;
+    modoSecuencial = false;
+    jugadorActivo = -1;
+    mostrarMensaje = false;
+    mensajeTexto.clear();
+    cola.limpiar();
 }
 
 void Controlador::reiniciarPartida() {

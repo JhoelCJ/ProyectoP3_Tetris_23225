@@ -63,7 +63,7 @@ void Menu::crearWidgets() {
         win->getRenderer()->setBackgroundColor(tgui::Color(30, 30, 30));
 
         auto label = tgui::Label::create(
-            "\tControles:\n\nIzquierda/Derecha: mover\nArriba: rotar\nAbajo: bajar"
+            "\tControles:\n\nIzquierda/Derecha: mover\nArriba: rotar\nAbajo: Acelerar"
         );
         label->setAutoSize(true);
         label->setPosition(10, 10);

@@ -30,7 +30,6 @@ int ColaPiezas::verFrente() {
     if (!frente) return -1;
     return frente->tipo;
 }
-
 void ColaPiezas::encolar(int tipo) {
     NodoPieza* n = new NodoPieza(tipo);
     if (!fin) frente = fin = n;

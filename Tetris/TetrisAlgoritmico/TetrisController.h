@@ -30,6 +30,8 @@ public:
 
     void reiniciarPartida();
 
+    void volverAlMenu();
+
     Vista& obtenerVista();
 
 private:

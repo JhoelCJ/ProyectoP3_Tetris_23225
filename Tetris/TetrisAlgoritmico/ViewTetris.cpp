@@ -206,6 +206,27 @@ void Vista::dibujarPanelLateral(int puntuacion0, int puntuacion1, int jugadorAct
     ctrlLine.setString("Abajo: Acelerar");
     ctrlLine.setPosition(lx, ly); ventana.draw(ctrlLine);
     ly += 18.f;
+
+    float btnW = controlsW;
+    float btnH = 28.f;
+    float btnX = controlsPosX;
+    float btnY = controlsPosY - btnH - 10.f;
+
+    sf::RectangleShape btnMenu(sf::Vector2f(btnW, btnH));
+    btnMenu.setPosition(btnX, btnY);
+    btnMenu.setFillColor(sf::Color(70, 130, 180));
+    btnMenu.setOutlineThickness(1.f);
+    btnMenu.setOutlineColor(sf::Color(40,40,40));
+    btnMenu.setOrigin(0.f, 0.f);
+    ventana.draw(btnMenu);
+
+    sf::Text txtMenu("Volver", fuente, 16);
+    txtMenu.setFillColor(sf::Color::White);
+    sf::FloatRect tb = txtMenu.getLocalBounds();
+    txtMenu.setOrigin(tb.left + tb.width/2.f, tb.top + tb.height/2.f);
+    txtMenu.setPosition(btnX + btnW/2.f, btnY + btnH/2.f - 2.f);
+    ventana.draw(txtMenu);
+    botonMenuRect = sf::FloatRect(btnX, btnY, btnW, btnH);
 }
 
 void Vista::dibujarTablero(Fila* head, int filas, int cols) {
@@ -274,7 +295,7 @@ void Vista::dibujarTextoCentral(const char* texto) {
     sf::Text t(texto, fuente, 18);
     t.setFillColor(sf::Color::Red);
     float centerX = ventana.getSize().x / 2.f;
-    float centerY = ventana.getSize().y / 1.5f;
+    float centerY = ventana.getSize().y / 1.7f;
     sf::FloatRect lb = t.getLocalBounds();
     t.setOrigin(lb.left + lb.width / 2.f, lb.top + lb.height / 2.f);
     t.setPosition(centerX, centerY);
@@ -285,4 +306,7 @@ sf::FloatRect Vista::obtenerRectBotonReiniciar() const {
 }
 sf::FloatRect Vista::obtenerRectBotonSalir() const {
     return botonSalirRect;
+}
+sf::FloatRect Vista::obtenerRectBotonMenu() const {
+    return botonMenuRect;
 }

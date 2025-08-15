@@ -22,7 +22,7 @@ public:
 
     sf::FloatRect obtenerRectBotonReiniciar() const;
     sf::FloatRect obtenerRectBotonSalir() const;
-
+    sf::FloatRect obtenerRectBotonMenu() const;
 
 private:
     sf::RenderWindow ventana;
@@ -36,6 +36,7 @@ private:
 
     sf::FloatRect botonReiniciarRect;
     sf::FloatRect botonSalirRect;
+     sf::FloatRect botonMenuRect;
 
     sf::Texture texturaFondo;
     sf::Sprite spriteFondo;
