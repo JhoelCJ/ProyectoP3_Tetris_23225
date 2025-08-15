@@ -437,7 +437,7 @@
 	"TetrisModel.h"
 	<string>
 
-1755229560 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
+1755232892 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
 	"TetrisController.h"
 	"TetrisMusica.h"
 	<SFML/Window/Event.hpp>
@@ -1220,14 +1220,14 @@
 1748748636 d:\universidad\6to semestre(tercero a medias)\estructura de datos\sfml2.5.1\sfml-2.5.1-windows-gcc-7.3.0-mingw-64-bit\sfml-2.5.1\include\sfml\main.hpp
 	<SFML/Config.hpp>
 
-1755228526 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\menutetris.cpp
+1755231034 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\menutetris.cpp
 	"TetrisMenu.h"
 
-1755230115 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\musicatetris.cpp
+1755231367 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\musicatetris.cpp
 	"TetrisMusica.h"
 	<iostream>
 
-1755230115 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismusica.h
+1755231442 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrismusica.h
 	<SFML/Audio.hpp>
 	<map>
 	<string>

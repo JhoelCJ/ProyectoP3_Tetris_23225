@@ -25,7 +25,7 @@ Controlador::Controlador(): intervaloBase(0.8f), juego(500, 0.8f){
     finJuego = false;
     puedeRotar = true;
 
-    audio.loadMusic("menu", "musica/Zelda.ogg");
+    audio.loadMusic("menu", "musica/Tron.ogg");
     audio.loadMusic("game", "musica/TetrisPelicula.ogg");
 }
 
