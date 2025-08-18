@@ -430,7 +430,7 @@
 	<SFML/Graphics.hpp>
 	"TetrisModel.h"
 
-1755219550 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\viewtetris.cpp
+1755527210 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\viewtetris.cpp
 	<SFML/Graphics.hpp>
 	<TGUI/TGUI.hpp>
 	"TetrisView.h"

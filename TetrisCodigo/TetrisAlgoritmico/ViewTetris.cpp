@@ -86,7 +86,9 @@ void Vista::dibujarPantallaFinal(const std::string& titulo, int p1, int p2){
     txtSalir.setPosition(centerX, baseY + btnH + 18.f);
     ventana.draw(txtSalir);
     botonReiniciarRect = sf::FloatRect(centerX - btnW/2.f, baseY - btnH/2.f, btnW, btnH);
+    botonReiniciarRect = btnReiniciar.getGlobalBounds();
     botonSalirRect = sf::FloatRect(centerX - btnW/2.f, baseY + btnH/2.f + 18.f - btnH/2.f, btnW, btnH);
+    botonSalirRect     = btnSalir.getGlobalBounds();
 }
 
 void Vista::dibujarPanelLateral(int puntuacion0, int puntuacion1, int jugadorActivo, int nivel0, int nivel1, int siguienteTipo){
