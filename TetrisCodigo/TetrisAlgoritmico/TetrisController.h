@@ -1,9 +1,10 @@
 #ifndef TETRISCONTROLLER_H_INCLUDED
 #define TETRISCONTROLLER_H_INCLUDED
-
+#include <SFML/Graphics.hpp>
 #include "TetrisModel.h"
 #include "TetrisView.h"
 #include "TetrisMusica.h"
+#include <string>
 
 class Controlador {
 public:
@@ -82,6 +83,31 @@ private:
     const int SIDEBAR_WIDTH = 200;
 
     AudioManager audio;
+
+
+    struct MensajeFlotante {
+        std::string texto;
+        float x;
+        float y;
+        float tiempoMensaje;
+        float tiempoInicialTexto;
+        float vy;
+        int size;
+        sf::Color color;
+        bool active;
+
+        MensajeFlotante()
+            : texto(), x(0.f), y(0.f),
+              tiempoMensaje(0.f), tiempoInicialTexto(0.f),
+              vy(0.f), size(16), color(sf::Color::White),
+              active(false) {}
+    };
+
+    static const int MAX_MENSAJES = 16;
+    MensajeFlotante mensajes[MAX_MENSAJES];
+
+    void crearMensajeFlotante(const std::string& texto, float x, float y, float dur = 1.6f, float vy = -40.f, int size = 18, sf::Color color = sf::Color::White);
+
 };
 
 #endif // TETRISCONTROLLER_H_INCLUDED

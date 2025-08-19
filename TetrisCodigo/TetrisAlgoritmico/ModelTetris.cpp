@@ -174,8 +174,39 @@ void Tablero::escanearYEliminar(Fila*& headRef, int colsLocal, int filasTotales)
     }
 }
 
-int Tablero::limpiarLineasCompletas() {
-    int antes = contarFilas();
+int Tablero::limpiarLineasCompletas(int removedRows[], int maxRemoved) {
+
+    int contador = 0;
+    int r = 0;
+    Fila* curr = head;
+    Fila* prev = nullptr;
+
+    while (curr) {
+        if (filaLlena(curr)) {
+            if (contador < maxRemoved) removedRows[contador] = r;
+            ++contador;
+
+            eliminarUnaFila(head, prev);
+
+            if (prev) curr = prev->siguiente;
+            else curr = head;
+
+        } else {
+            prev = curr;
+            curr = curr->siguiente;
+            ++r;
+        }
+    }
+
+    while (contarFilas() < filas) {
+        Fila* nueva = new Fila(cols);
+        nueva->siguiente = head;
+        head = nueva;
+    }
+
+    return contador;
+
+    /*int antes = contarFilas();
     escanearYEliminar(head, cols, filas);
     int despues = contarFilas();
     int eliminadas = antes - despues;
@@ -184,7 +215,7 @@ int Tablero::limpiarLineasCompletas() {
         nueva->siguiente = head;
         head = nueva;
     }
-    return eliminadas;
+    return eliminadas;*/
 }
 
 bool Tablero::colisiona(int shape[4][4], int tam, int px, int py) {

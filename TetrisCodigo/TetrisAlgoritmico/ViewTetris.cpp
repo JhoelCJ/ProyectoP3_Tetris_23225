@@ -303,6 +303,34 @@ void Vista::dibujarTextoCentral(const char* texto) {
     t.setPosition(centerX, centerY);
     ventana.draw(t);
 }
+
+void Vista::dibujarTextoFlotante(const std::string& texto, float x, float y, int tamanio, sf::Color color, float alpha){
+
+    if (fuente.getInfo().family.empty()) return;
+
+    if (tamanio <= 0) tamanio = 16;
+
+    if (alpha < 0.f) alpha = 0.f;
+    if (alpha > 1.f) alpha = 1.f;
+
+    sf::Text t(texto, fuente, tamanio);
+
+    sf::Uint8 a = static_cast<sf::Uint8>(alpha * 255.f);
+    sf::Color col = color;
+    col.a = a;
+    t.setFillColor(col);
+
+    sf::FloatRect lb = t.getLocalBounds();
+    t.setOrigin(lb.left + lb.width / 2.f, lb.top + lb.height / 2.f);
+    t.setPosition(x, y);
+
+    t.setOutlineThickness(1.f);
+    sf::Color outline = sf::Color(0, 0, 0, a);
+    t.setOutlineColor(outline);
+
+    ventana.draw(t);
+}
+
 sf::FloatRect Vista::obtenerRectBotonReiniciar() const {
     return botonReiniciarRect;
 }

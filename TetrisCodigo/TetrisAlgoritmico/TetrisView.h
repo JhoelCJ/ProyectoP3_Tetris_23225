@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "TetrisModel.h"
+#include <string>
 
 class Vista {
 public:
@@ -19,6 +20,9 @@ public:
     void dibujarHUD(int puntuacion0, int puntuacion1, int jugadorActivo);
     void dibujarTextoCentral(const char* texto);
     void dibujarPanelLateral(int puntuacion0, int puntuacion1, int jugadorActivo, int nivel0, int nivel1, int siguienteTipo);
+
+    void dibujarTextoFlotante(const std::string& texto, float x, float y,
+                          int tamanio, sf::Color color, float alpha);
 
     sf::FloatRect obtenerRectBotonReiniciar() const;
     sf::FloatRect obtenerRectBotonSalir() const;

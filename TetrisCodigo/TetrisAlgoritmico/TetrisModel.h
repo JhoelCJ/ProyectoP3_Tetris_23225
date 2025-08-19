@@ -74,7 +74,7 @@ public:
 
     bool colisiona(int shape[4][4], int tam, int px, int py);
     void fijarPieza(int shape[4][4], int tam, int px, int py, int tipoPieza);
-    int limpiarLineasCompletas();
+    int limpiarLineasCompletas(int removedRows[], int maxRemoved);
     int contarFilas();
     Fila* obtenerHead();
 

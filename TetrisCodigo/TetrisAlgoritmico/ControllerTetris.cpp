@@ -25,6 +25,8 @@ Controlador::Controlador(): intervaloBase(0.8f), juego(500, 0.8f){
     finJuego = false;
     puedeRotar = true;
 
+    for (int i = 0; i < MAX_MENSAJES; ++i) mensajes[i].active = false;
+
     audio.loadMusic("menu", "musica/Tron.ogg");
     audio.loadMusic("game", "musica/TetrisPelicula.ogg");
 }
@@ -204,6 +206,16 @@ void Controlador::actualizar(float dt) {
             mensajeTexto.clear();
         }
     }
+
+    for (int i = 0; i < MAX_MENSAJES; ++i) {
+        if (!mensajes[i].active) continue;
+        mensajes[i].y += mensajes[i].vy * dt;
+        mensajes[i].tiempoMensaje -= dt;
+        if (mensajes[i].tiempoMensaje <= 0.f) {
+            mensajes[i].active = false;
+        }
+    }
+
     audio.update(dt);
 }
 
@@ -220,6 +232,15 @@ void Controlador::dibujar() {
 
     if (mostrarMensaje) {
         vista->dibujarTextoCentral(mensajeTexto.c_str());
+    }
+
+    for (int i = 0; i < MAX_MENSAJES; ++i) {
+        if (!mensajes[i].active) continue;
+        float alpha = 1.f;
+        if (mensajes[i].tiempoInicialTexto > 0.f)
+            alpha = mensajes[i].tiempoMensaje / mensajes[i].tiempoInicialTexto;
+        if (alpha < 0.f) alpha = 0.f;
+        vista->dibujarTextoFlotante(mensajes[i].texto, mensajes[i].x, mensajes[i].y, mensajes[i].size, mensajes[i].color, alpha);
     }
 
     if (finJuego) {
@@ -239,16 +260,57 @@ void Controlador::dibujar() {
     vista->presentar();
 }
 
+void Controlador::crearMensajeFlotante(const std::string& texto, float x, float y, float dur, float vy, int tam, sf::Color color){
+    for (int i = 0; i < MAX_MENSAJES; ++i) {
+        if (!mensajes[i].active) {
+            mensajes[i].texto = texto;
+            mensajes[i].x = x;
+            mensajes[i].y = y;
+            mensajes[i].tiempoMensaje = dur;
+            mensajes[i].tiempoInicialTexto = dur;
+            mensajes[i].vy = vy;
+            mensajes[i].size = tam;
+            mensajes[i].color = color;
+            mensajes[i].active = true;
+            return;
+        }
+    }
+    int idx_min = 0;
+    float min_life = mensajes[0].tiempoMensaje;
+    for (int i = 1; i < MAX_MENSAJES; ++i) {
+        if (mensajes[i].tiempoMensaje < min_life) {
+            min_life = mensajes[i].tiempoMensaje;
+            idx_min = i;
+        }
+    }
+    mensajes[idx_min].texto = texto;
+    mensajes[idx_min].x = x;
+    mensajes[idx_min].y = y;
+    mensajes[idx_min].tiempoMensaje = dur;
+    mensajes[idx_min].tiempoInicialTexto = dur;
+    mensajes[idx_min].vy = vy;
+    mensajes[idx_min].size = tam;
+    mensajes[idx_min].color = color;
+    mensajes[idx_min].active = true;
+}
+
 void Controlador::fijarYProcesar() {
     tablero->fijarPieza(piezaForma, piezaTam, piezaX, piezaY, piezaTipoActual);
-    int eliminadas = tablero->limpiarLineasCompletas();
+    int filasEliminadas[4];
+    int eliminadas = tablero->limpiarLineasCompletas(filasEliminadas, 4);
+
+    std::string textoCombo;
+    if (eliminadas == 1) textoCombo = "Bien +100";
+    else if (eliminadas == 2) textoCombo = "Doble +200";
+    else if (eliminadas == 3) textoCombo = "¡Asombroso +300!";
+    else if (eliminadas >= 4) textoCombo = "¡¡BONUS +500!!";
 
     if (modoActual == Modo::DosJugadores && modoSecuencial) {
         int puntos = (eliminadas == 4) ? 500 : 100 * eliminadas;
         puntuaciones[jugadorActivo] += puntos;
 
         if (eliminadas > 0) {
-            playSoundEffect("lineclear");
+            playSoundEffect("lineclear ");
             juego.puntosPorLinea(eliminadas);
         }
         niveles[jugadorActivo] = juego.obtenerNivel();
@@ -258,6 +320,13 @@ void Controlador::fijarYProcesar() {
             juego.puntosPorLinea(eliminadas);
             if (juego.nivelSubio()) intervaloCaida = intervaloBase * juego.obtenerFactorVelocidad();
         }
+    }
+
+    for (int i = 0; i < eliminadas && i < 4; ++i) {
+        int indiceFila = filasEliminadas[i];
+        float posX = (COLUMNAS * TILE_SIZE) / 2.f;
+        float posY = (indiceFila * TILE_SIZE) + (TILE_SIZE / 2.f);
+        crearMensajeFlotante(textoCombo, posX, posY, 1.6f, -36.f, 18, sf::Color::White);
     }
 
     llenarSacoSiNecesario();
@@ -281,12 +350,12 @@ void Controlador::fijarYProcesar() {
                 jugando = false;
                 mostrarMensaje = false;
                 mensajeTexto.clear();
-                playSoundEffect("gameover");
+                playSoundEffect("Gameover");
             }
         } else {
             finJuego = true;
             jugando = false;
-            playSoundEffect("gameover");
+            playSoundEffect("Gameover");
         }
     }
 }
