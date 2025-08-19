@@ -421,14 +421,14 @@
 	<cstdlib>
 	<cmath>
 
-1755634384 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetriscontroller.h
+1755635816 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetriscontroller.h
 	<SFML/Graphics.hpp>
 	"TetrisModel.h"
 	"TetrisView.h"
 	"TetrisMusica.h"
 	<string>
 
-1755556607 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrisview.h
+1755635816 d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\tetrisview.h
 	<SFML/Graphics.hpp>
 	"TetrisModel.h"
 	<string>
@@ -440,7 +440,7 @@
 	"TetrisModel.h"
 	<string>
 
-1755634261 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
+1755635490 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\controllertetris.cpp
 	"TetrisController.h"
 	"TetrisMusica.h"
 	<SFML/Window/Event.hpp>
@@ -1226,7 +1226,7 @@
 1755634326 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\menutetris.cpp
 	"TetrisMenu.h"
 
-1755634326 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\musicatetris.cpp
+1755634510 source:d:\universidad\6to semestre(tercero a medias)\estructura de datos\p3\proyetcofinal\tetrisv2\tetrisalgoritmico\tetrisalgoritmico\musicatetris.cpp
 	"TetrisMusica.h"
 	<iostream>
 

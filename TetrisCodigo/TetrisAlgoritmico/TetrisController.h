@@ -28,7 +28,7 @@ public:
     int obtenerNivel(int jugador) const;
     Modo obtenerModo() const { return modoActual; }
 
-    bool estaEnPantallaFinal() const { return finJuego; }
+    bool estaEnPantallaFinal() const;
 
     void reiniciarPartida();
 

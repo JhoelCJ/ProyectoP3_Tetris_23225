@@ -10,8 +10,9 @@ int main() {
     sf::Clock reloj;
     while (vista.abierta()) {
         sf::Event evento;
+
         while (vista.obtenerVentana().pollEvent(evento)) {
-            if (!controlador.estaJugando()) {
+            if (!controlador.estaJugando() && !controlador.estaEnPantallaFinal()) {
                 menu.procesarEvento(evento);
             }
             controlador.procesarEvento(evento);

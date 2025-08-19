@@ -454,6 +454,10 @@ void Controlador::reiniciarDuelo() {
     nuevaPieza();
 }
 
+bool Controlador::estaEnPantallaFinal() const {
+    return finJuego;
+}
+
 void Controlador::playMenuMusic() {
     audio.playMusic("menu", true, 40.f);
 }
