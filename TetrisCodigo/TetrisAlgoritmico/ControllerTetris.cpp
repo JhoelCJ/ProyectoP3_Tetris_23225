@@ -137,6 +137,12 @@ void Controlador::procesarEvento(const sf::Event& evento) {
                 jugando = false;
                 finJuego = false;
                 mostrarMensaje = false;
+
+                stopMusic();
+                if (!audio.playMusic("menu", true, 45.f)) {
+                    std::cerr << "No se pudo reproducir 'menu' music\n";
+                }
+
                 return;
             }
         }
@@ -215,7 +221,6 @@ void Controlador::actualizar(float dt) {
             mensajes[i].active = false;
         }
     }
-
     audio.update(dt);
 }
 
@@ -256,7 +261,6 @@ void Controlador::dibujar() {
             vista->dibujarPantallaFinal(titulo, juego.obtenerPuntuacion(), -1);
         }
     }
-
     vista->presentar();
 }
 
@@ -310,7 +314,7 @@ void Controlador::fijarYProcesar() {
         puntuaciones[jugadorActivo] += puntos;
 
         if (eliminadas > 0) {
-            playSoundEffect("lineclear ");
+            playSoundEffect("lineclear");
             juego.puntosPorLinea(eliminadas);
         }
         niveles[jugadorActivo] = juego.obtenerNivel();
@@ -350,12 +354,12 @@ void Controlador::fijarYProcesar() {
                 jugando = false;
                 mostrarMensaje = false;
                 mensajeTexto.clear();
-                playSoundEffect("Gameover");
+                playSoundEffect("gameover");
             }
         } else {
             finJuego = true;
             jugando = false;
-            playSoundEffect("Gameover");
+            playSoundEffect("gameover");
         }
     }
 }
@@ -392,7 +396,6 @@ void Controlador::volverAlMenu() {
     if (!audio.playMusic("menu", true, 45.f)) {
         std::cerr << "Controlador::iniciarJuego -> no se pudo reproducir 'menu' music\n";
     }
-
     playMenuMusic();
 }
 
@@ -410,6 +413,10 @@ void Controlador::reiniciarPartida() {
         modoSecuencial = true;
     } else {
         jugadorActivo = -1;
+        stopMusic();
+                if (!audio.playMusic("game", true, 45.f)) {
+                    std::cerr << "No se pudo reproducir 'game' music\n";
+                }
         modoSecuencial = false;
     }
 
@@ -430,6 +437,10 @@ void Controlador::reiniciarDuelo() {
     niveles[0] = niveles[1] = 1;
     jugadorActivo = 0;
     modoActual = Modo::DosJugadores;
+            stopMusic();
+                if (!audio.playMusic("game", true, 45.f)) {
+                    std::cerr << "No se pudo reproducir 'game' music\n";
+                }
     modoSecuencial = true;
 
     juego = Juego(500, intervaloBase);

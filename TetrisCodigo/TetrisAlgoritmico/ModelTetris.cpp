@@ -205,17 +205,6 @@ int Tablero::limpiarLineasCompletas(int removedRows[], int maxRemoved) {
     }
 
     return contador;
-
-    /*int antes = contarFilas();
-    escanearYEliminar(head, cols, filas);
-    int despues = contarFilas();
-    int eliminadas = antes - despues;
-    while (contarFilas() < filas) {
-        Fila* nueva = new Fila(cols);
-        nueva->siguiente = head;
-        head = nueva;
-    }
-    return eliminadas;*/
 }
 
 bool Tablero::colisiona(int shape[4][4], int tam, int px, int py) {

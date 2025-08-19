@@ -84,7 +84,6 @@ private:
 
     AudioManager audio;
 
-
     struct MensajeFlotante {
         std::string texto;
         float x;

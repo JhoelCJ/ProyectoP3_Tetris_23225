@@ -100,5 +100,6 @@ void Menu::procesarEvento(const sf::Event& evento) {
 }
 
 void Menu::dibujar() {
+    if (controlador.estaJugando()) return;
     gui.draw();
 }
